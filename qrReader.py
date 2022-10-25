@@ -30,7 +30,6 @@ class QrReader:
             registers.append(
                 Register(
                     user=user.id,
-                    date=datetime.now(),
                     assistance=self.assistance.id,
                     status="Inasistencia",
                 )
@@ -51,7 +50,7 @@ class QrReader:
                         coord = np.array([barcode.polygon], np.int32).reshape(
                             (-1, 1, 2)
                         )
-                        resp = self.assistsProcess(email)
+                        resp = self.assists_process(email)
                         if resp == 0:
                             cv2.polylines(frame, [coord], True, (0, 0, 255), 5)
                             cv2.putText(
@@ -68,7 +67,7 @@ class QrReader:
                             cv2.polylines(frame, [coord], True, (0, 255, 0), 5)
                             cv2.putText(
                                 frame,
-                                "La assistencia ya fue registrada",
+                                "Asistencia registrada",
                                 (barcode.rect.left, barcode.rect.top - 5),
                                 cv2.FONT_HERSHEY_SIMPLEX,
                                 0.9,
@@ -88,9 +87,6 @@ class QrReader:
                                 2,
                             )
 
-                            cv2.imshow(self.window_name, frame)
-                            cv2.waitKey(2000)
-
                         else:
                             cv2.polylines(frame, [coord], True, (0, 0, 255), 5)
                             cv2.putText(
@@ -109,7 +105,7 @@ class QrReader:
                     self.__del__()
                     break
 
-    def assistsProcess(self, dni):
+    def assists_process(self, dni):
         """
         returns
         0 if user not found
@@ -139,10 +135,10 @@ class QrReader:
                 Register.assistance == self.assistance.id,
             )
 
-            if register.date:
+            if register.time:
                 return 1
 
-            register.date = today
+            register.time = today.time()
             if today.time() <= date_limit.time():
                 register.status = "Asistencia"
             else:
@@ -157,7 +153,7 @@ class QrReader:
                 status="Asistencia"
                 if today.time() <= date_limit.time()
                 else "Tardanza",
-                date=today,
+                time=today.time(),
             )
             register.save()
             return 2

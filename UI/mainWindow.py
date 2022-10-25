@@ -18,7 +18,7 @@ class MainWindow(QMainWindow):
             lambda: self.stackedWidget.setCurrentWidget(self.page_home)
         )
         self.btn_assistance.clicked.connect(lambda: self.assistanceService.on_active())
-        self.btn_user.clicked.connect(lambda: self.userService.onActive())
+        self.btn_user.clicked.connect(lambda: self.userService.on_active())
         self.btn_report_all.clicked.connect(
             lambda: self.assistanceService.on_report_all()
         )

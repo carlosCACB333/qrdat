@@ -10,7 +10,7 @@ class User(peewee.Model):
     dni = peewee.CharField(unique=True, null=False)
     phone = peewee.CharField(max_length=10)
     address = peewee.CharField()
-    turn = peewee.ForeignKeyField(Turn, backref="users")
+    turn = peewee.ForeignKeyField(Turn, backref="users", on_delete="RESTRICT")
     userType = peewee.CharField(
         null=False,
         default=USER_TYPES[0][1],

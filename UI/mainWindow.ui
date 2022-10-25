@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1061</width>
-    <height>842</height>
+    <width>1567</width>
+    <height>850</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,10 +17,85 @@
    <bool>false</bool>
   </property>
   <property name="styleSheet">
-   <string notr="true">
-background-color: rgb(22, 22, 30);
-color:rgb(255, 255, 255);
+   <string notr="true">*{
+	font: 11pt &quot;Sans Serif Collection&quot;;
+	color: rgb(255, 255, 255);
+}
 
+QPushButton{
+	color: rgb(255, 255, 255);
+	background-color: rgb(48, 50, 145);
+	border:none;
+	padding: 4px 8px;
+	border-radius: 8px;
+}
+
+QPushButton:hover{
+	background-color: rgb(73, 109, 194);
+}
+
+
+QLabel{
+color: rgb(255, 255, 255);
+}
+
+QLineEdit{
+	color: rgb(255, 255, 255);
+	padding: 4px 8px;
+	
+}
+
+QSpinBox{
+	color: rgb(255, 255, 255);
+	padding: 4px 8px;
+}
+
+
+QTimeEdit{
+	color: rgb(255, 255, 255);
+	padding: 4px 8px;
+}
+QDateEdit{
+	color: rgb(255, 255, 255);
+	padding: 4px 8px;
+}
+
+QT:cursor{
+	height:5px;
+}
+
+QComboBox{
+	color: rgb(255, 255, 255);
+	padding: 4px 8px;
+	border:2px solid rgb(255, 255, 255);
+	background-color:rgb(22, 22, 30);
+}
+
+
+
+QComboBox QAbstractView{
+	color: rgb(255, 255, 255);
+}
+
+QTableWidget{
+	background-color: rgb(0, 0, 0);
+	color: rgb(255, 255, 255);
+}
+
+
+QTableWidget QTableCornerButton::section{
+	background-color:rgb(85, 0, 255);
+	color: rgb(255, 255, 255);
+}
+
+QHeaderView::section{
+	background-color:rgb(22, 22, 30);
+	color: rgb(255, 255, 255);
+}
+
+QStatusBar{
+background-color:rgb(22, 22, 30);
+}
 
 </string>
   </property>
@@ -44,11 +119,7 @@ color:rgb(255, 255, 255);
     <item>
      <widget class="QFrame" name="frame_main">
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(22, 22, 30);
-
-QLabel{
-	color: rgb(255, 255, 255);
-}</string>
+       <string notr="true">background-color:rgb(22, 22, 30);</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
@@ -123,11 +194,8 @@ border-radius: 8px;
 }
 
 QPushButton{
-color: rgb(255, 255, 255);
 background-color: rgb(48, 0, 145);
-height:50px;
 border:none;
-font: 12pt &quot;Arial&quot;;
 }
 
 QPushButton:hover{
@@ -157,16 +225,6 @@ background-color: rgb(73, 109, 194);
               <number>0</number>
              </property>
              <item>
-              <widget class="QPushButton" name="btn_home">
-               <property name="styleSheet">
-                <string notr="true">margin-top:8px;</string>
-               </property>
-               <property name="text">
-                <string>Inicio</string>
-               </property>
-              </widget>
-             </item>
-             <item>
               <widget class="QPushButton" name="btn_turns">
                <property name="text">
                 <string>Turnos</string>
@@ -184,6 +242,16 @@ background-color: rgb(73, 109, 194);
               <widget class="QPushButton" name="btn_assistance">
                <property name="text">
                 <string>Asistencia</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_home">
+               <property name="styleSheet">
+                <string notr="true"/>
+               </property>
+               <property name="text">
+                <string>Inicio</string>
                </property>
               </widget>
              </item>
@@ -222,27 +290,26 @@ background-color: rgb(73, 109, 194);
              <item>
               <widget class="QStackedWidget" name="stackedWidget">
                <property name="styleSheet">
-                <string notr="true">QLabel{
-color: rgb(255, 255, 255);
-}
-
-QPushButton{
-color: rgb(255, 255, 255);
-background-color: rgb(48, 0, 145);
-padding:12px;
-border-radius:10px;
-	font: 12pt &quot;Arial&quot;;
-
+                <string notr="true">QPushButton{
+	color: rgb(255, 255, 255);
+	background-color: rgb(48, 50, 145);
+	border:none;
+	padding: 4px 8px;
+	border-radius: 8px;
 }
 
 QPushButton:hover{
-background-color: rgb(73, 109, 194);
+	background-color: rgb(73, 109, 194);
+}
+QComboBox QListView {
+	padding:4px;
+	color: rgb(255, 255, 255);
 }
 
-QLineEdit{
-height:40px;
-}
 
+QComboBox QListView:item:hover{
+	background-color: rgb(0, 170, 255);
+}
 
 </string>
                </property>
@@ -273,35 +340,7 @@ color: rgb(255, 255, 255);</string>
                  <item>
                   <widget class="QFrame" name="frame_7">
                    <property name="styleSheet">
-                    <string notr="true">QLineEdit{
-	color: rgb(255, 255, 255);
-	font: 12pt &quot;Arial&quot;;
-	padding:8px
-}
-
-QSpinBox{
-	color: rgb(255, 255, 255);
-	font: 12pt &quot;Arial&quot;;
-	padding:8px
-}
-
-
-QTimeEdit{
-	color: rgb(255, 255, 255);
-	font: 12pt &quot;Arial&quot;;
-	padding:8px
-}
-
-QComboBox{
-	color: rgb(255, 255, 255);
-	font: 12pt &quot;Arial&quot;;
-	padding:8px;
-	border-color:rgb(255, 255, 255);
-}
-
-QLabel{
-font: 12pt &quot;Arial&quot;;
-}</string>
+                    <string notr="true"/>
                    </property>
                    <property name="frameShape">
                     <enum>QFrame::StyledPanel</enum>
@@ -358,6 +397,9 @@ color: rgb(255, 255, 255);</string>
                     </item>
                     <item>
                      <widget class="QFrame" name="frame_control_15">
+                      <property name="styleSheet">
+                       <string notr="true"/>
+                      </property>
                       <property name="frameShape">
                        <enum>QFrame::StyledPanel</enum>
                       </property>
@@ -447,21 +489,7 @@ color: rgb(255, 255, 255);</string>
                  <item>
                   <widget class="QFrame" name="frame_9">
                    <property name="styleSheet">
-                    <string notr="true">QTableWidget{
-	background-color: rgb(0, 0, 0);
-	color: rgb(255, 255, 255);
-}
-
-
-QTableWidget QTableCornerButton::section{
-	background-color:rgb(85, 0, 255);
-	color: rgb(255, 255, 255);
-}
-
-QHeaderView::section{
-	background-color:rgb(22, 22, 30);
-	color: rgb(255, 255, 255);
-}</string>
+                    <string notr="true"/>
                    </property>
                    <property name="frameShape">
                     <enum>QFrame::StyledPanel</enum>
@@ -472,6 +500,23 @@ QHeaderView::section{
                    <layout class="QVBoxLayout" name="verticalLayout_12">
                     <item>
                      <widget class="QTableWidget" name="tbl_turns">
+                      <property name="selectionMode">
+                       <enum>QAbstractItemView::SingleSelection</enum>
+                      </property>
+                      <property name="selectionBehavior">
+                       <enum>QAbstractItemView::SelectRows</enum>
+                      </property>
+                      <attribute name="horizontalHeaderDefaultSectionSize">
+                       <number>200</number>
+                      </attribute>
+                      <attribute name="horizontalHeaderStretchLastSection">
+                       <bool>true</bool>
+                      </attribute>
+                      <column>
+                       <property name="text">
+                        <string>ID</string>
+                       </property>
+                      </column>
                       <column>
                        <property name="text">
                         <string>Nombre</string>
@@ -500,110 +545,175 @@ QHeaderView::section{
 color: rgb(255, 255, 255);
 }</string>
                 </property>
-                <widget class="QFrame" name="frame_4">
-                 <property name="geometry">
-                  <rect>
-                   <x>10</x>
-                   <y>10</y>
-                   <width>691</width>
-                   <height>221</height>
-                  </rect>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">QLineEdit{
-	color: rgb(255, 255, 255);
-	font: 12pt &quot;Arial&quot;;
-	padding:8px
-}
-
-QComboBox{
-	color: rgb(255, 255, 255);
-	font: 12pt &quot;Arial&quot;;
-	padding:8px;
-	border-color:rgb(255, 255, 255);
-}
-
-QLabel{
-font: 12pt &quot;Arial&quot;;
-}</string>
-                 </property>
-                 <property name="frameShape">
-                  <enum>QFrame::StyledPanel</enum>
-                 </property>
-                 <property name="frameShadow">
-                  <enum>QFrame::Raised</enum>
-                 </property>
-                 <layout class="QVBoxLayout" name="verticalLayout_7">
-                  <item>
-                   <widget class="QLabel" name="label_20">
-                    <property name="styleSheet">
-                     <string notr="true">font: 75 18pt &quot;MS Shell Dlg 2&quot;;
+                <layout class="QVBoxLayout" name="verticalLayout_19">
+                 <item>
+                  <widget class="QFrame" name="frame_4">
+                   <property name="styleSheet">
+                    <string notr="true"/>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <layout class="QVBoxLayout" name="verticalLayout_7">
+                    <item>
+                     <widget class="QLabel" name="label_20">
+                      <property name="styleSheet">
+                       <string notr="true">font: 75 18pt &quot;MS Shell Dlg 2&quot;;
 color: rgb(255, 255, 255);</string>
-                    </property>
-                    <property name="lineWidth">
-                     <number>15</number>
-                    </property>
-                    <property name="text">
-                     <string>Asistencia</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QFrame" name="frame_control_11">
-                    <property name="frameShape">
-                     <enum>QFrame::StyledPanel</enum>
-                    </property>
-                    <property name="frameShadow">
-                     <enum>QFrame::Raised</enum>
-                    </property>
-                    <layout class="QHBoxLayout" name="horizontalLayout_12" stretch="1,3,0">
-                     <property name="spacing">
-                      <number>20</number>
-                     </property>
-                     <item>
-                      <widget class="QLabel" name="label_21">
-                       <property name="text">
-                        <string>Seleccione:</string>
+                      </property>
+                      <property name="lineWidth">
+                       <number>15</number>
+                      </property>
+                      <property name="text">
+                       <string>Asistencia</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QFrame" name="frame_control_11">
+                      <property name="frameShape">
+                       <enum>QFrame::StyledPanel</enum>
+                      </property>
+                      <property name="frameShadow">
+                       <enum>QFrame::Raised</enum>
+                      </property>
+                      <layout class="QHBoxLayout" name="horizontalLayout_12" stretch="1,3,0,0">
+                       <property name="spacing">
+                        <number>20</number>
                        </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QComboBox" name="cmb_assistance_turns"/>
-                     </item>
-                     <item>
-                      <widget class="QPushButton" name="btn_assistance_pass">
+                       <item>
+                        <widget class="QLabel" name="label_21">
+                         <property name="text">
+                          <string>Seleccione:</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QComboBox" name="cmb_assistance_turns"/>
+                       </item>
+                       <item>
+                        <widget class="QPushButton" name="btn_assistance_pass">
+                         <property name="text">
+                          <string>Pasar lista</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QPushButton" name="btn_current_registers">
+                         <property name="text">
+                          <string>Mosar asistencia</string>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QFrame" name="frame_12">
+                   <property name="styleSheet">
+                    <string notr="true"/>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <layout class="QVBoxLayout" name="verticalLayout_18">
+                    <item>
+                     <widget class="QTableWidget" name="tbl_current_registers">
+                      <property name="enabled">
+                       <bool>true</bool>
+                      </property>
+                      <property name="tabKeyNavigation">
+                       <bool>false</bool>
+                      </property>
+                      <property name="alternatingRowColors">
+                       <bool>false</bool>
+                      </property>
+                      <property name="selectionMode">
+                       <enum>QAbstractItemView::SingleSelection</enum>
+                      </property>
+                      <property name="selectionBehavior">
+                       <enum>QAbstractItemView::SelectRows</enum>
+                      </property>
+                      <property name="textElideMode">
+                       <enum>Qt::ElideRight</enum>
+                      </property>
+                      <property name="gridStyle">
+                       <enum>Qt::NoPen</enum>
+                      </property>
+                      <property name="wordWrap">
+                       <bool>true</bool>
+                      </property>
+                      <property name="cornerButtonEnabled">
+                       <bool>false</bool>
+                      </property>
+                      <attribute name="horizontalHeaderCascadingSectionResizes">
+                       <bool>false</bool>
+                      </attribute>
+                      <attribute name="horizontalHeaderDefaultSectionSize">
+                       <number>110</number>
+                      </attribute>
+                      <column>
                        <property name="text">
-                        <string>Pasar lista</string>
+                        <string>Id</string>
                        </property>
-                      </widget>
-                     </item>
-                    </layout>
-                   </widget>
-                  </item>
-                 </layout>
-                </widget>
+                      </column>
+                      <column>
+                       <property name="text">
+                        <string>Nombres</string>
+                       </property>
+                      </column>
+                      <column>
+                       <property name="text">
+                        <string>Apellidos</string>
+                       </property>
+                      </column>
+                      <column>
+                       <property name="text">
+                        <string>DNI</string>
+                       </property>
+                      </column>
+                      <column>
+                       <property name="text">
+                        <string>Tipo</string>
+                       </property>
+                      </column>
+                      <column>
+                       <property name="text">
+                        <string>Turno</string>
+                       </property>
+                      </column>
+                      <column>
+                       <property name="text">
+                        <string>Entrada</string>
+                       </property>
+                      </column>
+                      <column>
+                       <property name="text">
+                        <string>Estado</string>
+                       </property>
+                      </column>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                </layout>
                </widget>
                <widget class="QWidget" name="page_user">
                 <layout class="QVBoxLayout" name="verticalLayout_9">
                  <item>
                   <widget class="QFrame" name="frame_form_2">
                    <property name="styleSheet">
-                    <string notr="true">QLineEdit{
-	color: rgb(255, 255, 255);
-	font: 12pt &quot;Arial&quot;;
-	padding:8px
-}
-
-QComboBox{
-	color: rgb(255, 255, 255);
-	font: 12pt &quot;Arial&quot;;
-	padding:8px;
-	border-color:rgb(255, 255, 255);
-}
-
-QLabel{
-font: 12pt &quot;Arial&quot;;
-}</string>
+                    <string notr="true"/>
                    </property>
                    <property name="frameShape">
                     <enum>QFrame::StyledPanel</enum>
@@ -764,6 +874,9 @@ color: rgb(255, 255, 255);</string>
                        <enum>QFrame::Raised</enum>
                       </property>
                       <layout class="QHBoxLayout" name="horizontalLayout_11" stretch="1,3,1,3">
+                       <property name="spacing">
+                        <number>20</number>
+                       </property>
                        <item>
                         <widget class="QLabel" name="label_17">
                          <property name="text">
@@ -779,21 +892,9 @@ color: rgb(255, 255, 255);</string>
                            <height>30</height>
                           </size>
                          </property>
-                         <item>
-                          <property name="text">
-                           <string>Alumno</string>
-                          </property>
-                         </item>
-                         <item>
-                          <property name="text">
-                           <string>Profesor</string>
-                          </property>
-                         </item>
-                         <item>
-                          <property name="text">
-                           <string>Otro</string>
-                          </property>
-                         </item>
+                         <property name="styleSheet">
+                          <string notr="true"/>
+                         </property>
                         </widget>
                        </item>
                        <item>
@@ -854,21 +955,7 @@ color: rgb(255, 255, 255);</string>
                  <item>
                   <widget class="QFrame" name="frame_3">
                    <property name="styleSheet">
-                    <string notr="true">QTableWidget{
-	background-color: rgb(0, 0, 0);
-	color: rgb(255, 255, 255);
-}
-
-
-QTableWidget QTableCornerButton::section{
-	background-color:rgb(85, 0, 255);
-	color: rgb(255, 255, 255);
-}
-
-QHeaderView::section{
-	background-color:rgb(22, 22, 30);
-	color: rgb(255, 255, 255);
-}</string>
+                    <string notr="true"/>
                    </property>
                    <property name="frameShape">
                     <enum>QFrame::StyledPanel</enum>
@@ -879,6 +966,41 @@ QHeaderView::section{
                    <layout class="QVBoxLayout" name="verticalLayout_10">
                     <item>
                      <widget class="QTableWidget" name="table_user">
+                      <property name="enabled">
+                       <bool>true</bool>
+                      </property>
+                      <property name="alternatingRowColors">
+                       <bool>false</bool>
+                      </property>
+                      <property name="selectionMode">
+                       <enum>QAbstractItemView::SingleSelection</enum>
+                      </property>
+                      <property name="selectionBehavior">
+                       <enum>QAbstractItemView::SelectRows</enum>
+                      </property>
+                      <property name="textElideMode">
+                       <enum>Qt::ElideRight</enum>
+                      </property>
+                      <property name="gridStyle">
+                       <enum>Qt::NoPen</enum>
+                      </property>
+                      <property name="wordWrap">
+                       <bool>true</bool>
+                      </property>
+                      <property name="cornerButtonEnabled">
+                       <bool>false</bool>
+                      </property>
+                      <attribute name="horizontalHeaderCascadingSectionResizes">
+                       <bool>false</bool>
+                      </attribute>
+                      <attribute name="horizontalHeaderDefaultSectionSize">
+                       <number>150</number>
+                      </attribute>
+                      <column>
+                       <property name="text">
+                        <string>Id</string>
+                       </property>
+                      </column>
                       <column>
                        <property name="text">
                         <string>Nombres</string>
@@ -926,31 +1048,109 @@ QHeaderView::section{
                  </item>
                 </layout>
                </widget>
+               <widget class="QWidget" name="page_report_detail">
+                <layout class="QVBoxLayout" name="verticalLayout_17">
+                 <item>
+                  <widget class="QFrame" name="frame_10">
+                   <property name="styleSheet">
+                    <string notr="true"/>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <layout class="QVBoxLayout" name="verticalLayout_15">
+                    <item>
+                     <widget class="QLabel" name="label_25">
+                      <property name="styleSheet">
+                       <string notr="true">font: 75 18pt &quot;MS Shell Dlg 2&quot;;
+color: rgb(255, 255, 255);</string>
+                      </property>
+                      <property name="lineWidth">
+                       <number>15</number>
+                      </property>
+                      <property name="text">
+                       <string>Historial del registro de asistencia</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="lbl_report_detail">
+                      <property name="font">
+                       <font>
+                        <family>Sans Serif Collection</family>
+                        <pointsize>11</pointsize>
+                        <weight>50</weight>
+                        <italic>false</italic>
+                        <bold>false</bold>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>Usuario:</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QFrame" name="frame_11">
+                   <property name="styleSheet">
+                    <string notr="true"/>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <layout class="QVBoxLayout" name="verticalLayout_16">
+                    <item>
+                     <widget class="QTableWidget" name="tbl_report_detail">
+                      <property name="selectionMode">
+                       <enum>QAbstractItemView::SingleSelection</enum>
+                      </property>
+                      <property name="selectionBehavior">
+                       <enum>QAbstractItemView::SelectColumns</enum>
+                      </property>
+                      <attribute name="horizontalHeaderDefaultSectionSize">
+                       <number>200</number>
+                      </attribute>
+                      <column>
+                       <property name="text">
+                        <string>Id</string>
+                       </property>
+                      </column>
+                      <column>
+                       <property name="text">
+                        <string>Fecha</string>
+                       </property>
+                      </column>
+                      <column>
+                       <property name="text">
+                        <string>Hora de registro</string>
+                       </property>
+                      </column>
+                      <column>
+                       <property name="text">
+                        <string>Estado</string>
+                       </property>
+                      </column>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
                <widget class="QWidget" name="page_report_all">
                 <layout class="QVBoxLayout" name="verticalLayout_5">
                  <item>
                   <widget class="QFrame" name="frame_5">
                    <property name="styleSheet">
-                    <string notr="true">QLineEdit{
-	color: rgb(255, 255, 255);
-	font: 12pt &quot;Arial&quot;;
-	padding:8px
-}
-QDateTimeEdit{
-	color: rgb(255, 255, 255);
-	font: 12pt &quot;Arial&quot;;
-	padding:8px
-}
-QComboBox{
-	color: rgb(255, 255, 255);
-	font: 12pt &quot;Arial&quot;;
-	padding:8px;
-	border-color:rgb(255, 255, 255);
-}
-
-QLabel{
-font: 12pt &quot;Arial&quot;;
-}</string>
+                    <string notr="true"/>
                    </property>
                    <property name="frameShape">
                     <enum>QFrame::StyledPanel</enum>
@@ -1049,21 +1249,7 @@ color: rgb(255, 255, 255);</string>
                  <item>
                   <widget class="QFrame" name="frame_6">
                    <property name="styleSheet">
-                    <string notr="true">QTableWidget{
-	background-color: rgb(0, 0, 0);
-	color: rgb(255, 255, 255);
-}
-
-
-QTableWidget QTableCornerButton::section{
-	background-color:rgb(85, 0, 255);
-	color: rgb(255, 255, 255);
-}
-
-QHeaderView::section{
-	background-color:rgb(22, 22, 30);
-	color: rgb(255, 255, 255);
-}</string>
+                    <string notr="true"/>
                    </property>
                    <property name="frameShape">
                     <enum>QFrame::StyledPanel</enum>
@@ -1074,6 +1260,17 @@ QHeaderView::section{
                    <layout class="QVBoxLayout" name="verticalLayout_13">
                     <item>
                      <widget class="QTableWidget" name="tbl_report">
+                      <property name="selectionMode">
+                       <enum>QAbstractItemView::SingleSelection</enum>
+                      </property>
+                      <property name="selectionBehavior">
+                       <enum>QAbstractItemView::SelectRows</enum>
+                      </property>
+                      <column>
+                       <property name="text">
+                        <string>Id</string>
+                       </property>
+                      </column>
                       <column>
                        <property name="text">
                         <string>DNI</string>
@@ -1132,9 +1329,10 @@ QHeaderView::section{
   <widget class="QStatusBar" name="statusbar">
    <property name="font">
     <font>
-     <family>Arial</family>
-     <pointsize>12</pointsize>
+     <family>Sans Serif Collection</family>
+     <pointsize>11</pointsize>
      <weight>50</weight>
+     <italic>false</italic>
      <bold>false</bold>
     </font>
    </property>

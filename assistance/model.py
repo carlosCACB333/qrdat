@@ -7,7 +7,7 @@ from user.Model import User
 
 class Assistance(peewee.Model):
     date = peewee.DateField(null=False, default=datetime.now)
-    turn = peewee.ForeignKeyField(Turn, backref="assistances")
+    turn = peewee.ForeignKeyField(Turn, backref="assistances", on_delete="RESTRICT")
 
     def __str__(self):
         return self.name
@@ -19,9 +19,11 @@ class Assistance(peewee.Model):
 
 
 class Register(peewee.Model):
-    date = peewee.DateTimeField(null=True)
-    user = peewee.ForeignKeyField(User, backref="registers")
-    assistance = peewee.ForeignKeyField(Assistance, backref="registers")
+    time = peewee.TimeField(null=True)
+    user = peewee.ForeignKeyField(User, backref="registers", on_delete="RESTRICT")
+    assistance = peewee.ForeignKeyField(
+        Assistance, backref="registers", on_delete="RESTRICT"
+    )
     status = peewee.CharField(
         null=False,
         choices=[
