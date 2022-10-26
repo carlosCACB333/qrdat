@@ -1,19 +1,20 @@
 from datetime import datetime, timedelta
 
 from black import Report
+from attendance.report import AttendanceReport
 from settings import MENU_STYLE
 from user.Model import User
-from .model import Assistance, Register, Turn
+from .model import Attendance, Register, Turn
 from qrReader import QrReader
 from PyQt5.QtWidgets import QTableWidgetItem, QMenu
 from PyQt5.QtCore import Qt
 from peewee import fn
 
 
-class AssistanceService:
+class AttendanceService:
     def __init__(self, window):
         self.window = window
-        self.window.btn_assistance_pass.clicked.connect(self.pass_assistance)
+        self.window.btn_assistance_pass.clicked.connect(self.pass_attendance)
         self.window.btn_turn_save.clicked.connect(self.save_turn)
         self.window.btn_turns.clicked.connect(self.on_turns)
         self.window.btn_report_show.clicked.connect(self.fill_table_report)
@@ -26,28 +27,28 @@ class AssistanceService:
         self.window.dt_report_start.setDate(
             (datetime.now() - timedelta(days=30)).date()
         )
+        self.window.btn_report_all.clicked.connect(lambda: self.on_report_all())
+        self.window.btn_report_excel.clicked.connect(lambda: self.generate_excel())
         self.window.dt_report_end.setDate(datetime.now().date())
-        self.get_user_report()
 
     def on_active(self):
         self.window.stackedWidget.setCurrentWidget(self.window.page_assistance)
-        self.fill_cmb_assistance_turns()
+        self.fill_cmb_turns(self.window.cmb_assistance_turns)
 
     def on_report_all(self):
         self.window.stackedWidget.setCurrentWidget(self.window.page_report_all)
+        self.fill_cmb_turns(self.window.cmb_report_turns)
 
     def on_turns(self):
         self.window.stackedWidget.setCurrentWidget(self.window.page_turns)
         self.fill_table_turns()
 
-    def fill_cmb_assistance_turns(self):
-        self.window.cmb_assistance_turns.clear()
+    def fill_cmb_turns(self, cbm):
+        cbm.clear()
         turns = Turn.select()
         for turn in turns:
             time = turn.time.strftime("%I:%M %p")
-            self.window.cmb_assistance_turns.addItem(
-                "{} - {}".format(turn.name, time), turn.id
-            )
+            cbm.addItem("{} - {}".format(turn.name, time), turn.id)
 
     def _get_turn_fields(self):
         name = self.window.txt_turn_name.text()
@@ -83,20 +84,20 @@ class AssistanceService:
             self.window.tbl_turns.setItem(i, 2, QTableWidgetItem(str(turn.time)))
             self.window.tbl_turns.setItem(i, 3, QTableWidgetItem(str(turn.tolerance)))
 
-    def get_assistance_today(self):
-        assistance = Assistance.select().where(Assistance.date == datetime.now().date())
-        return assistance
+    def get_attendance_today(self):
+        attendance = Attendance.select().where(Attendance.date == datetime.now().date())
+        return attendance
 
-    def insert_registers(self, assistance):
+    def insert_registers(self, attendance):
         users = User.select()
         registers = []
         for user in users:
             registers.append(
-                Register(user=user, assistance=assistance, status="Inasistencia")
+                Register(user=user, attendance=attendance, status="Inasistencia")
             )
         Register.bulk_create(registers)
 
-    def pass_assistance(self):
+    def pass_attendance(self):
         id_turn = self.window.cmb_assistance_turns.currentData()
         if id_turn:
             try:
@@ -109,10 +110,15 @@ class AssistanceService:
     def get_user_report(self):
         """
         returns a list of tuples with the following structure:
-        (id,dni, firstname, lastname, userType, count_assistance,count_tardy, count_absence)
+        (id,dni, firstname, lastname, userType, count_attendance,count_tardy, count_absence)
         """
         dt_report_start = self.window.dt_report_start.date().toPyDate()
         dt_report_end = self.window.dt_report_end.date().toPyDate()
+        id_turn = self.window.cmb_report_turns.currentData()
+        if not id_turn:
+            self.window.show_message("Seleccione un turno", "error")
+            return
+
         users = (
             User.select(
                 User.id,
@@ -120,17 +126,19 @@ class AssistanceService:
                 User.firstname,
                 User.lastname,
                 User.userType,
-                fn.SUM(Register.status == "Asistencia").alias("count_assistance"),
+                fn.SUM(Register.status == "Asistencia").alias("count_attendance"),
                 fn.SUM(Register.status == "Tardanza").alias("count_tardy"),
                 fn.SUM(Register.status == "Inasistencia").alias("count_absence"),
             )
             .join(Register)
-            .join(Assistance)
+            .join(Attendance)
             .where(
-                (Assistance.date >= dt_report_start)
-                & (Assistance.date <= dt_report_end)
+                (Attendance.date >= dt_report_start)
+                & (Attendance.date <= dt_report_end)
+                & (User.turn == id_turn)
             )
             .group_by(User.dni)
+            .order_by(fn.Lower(User.lastname))
         )
 
         return users
@@ -138,11 +146,11 @@ class AssistanceService:
     def get_current_registers(self, turn_id):
         registers = (
             Register.select()
-            .join(Assistance)
+            .join(Attendance)
             .join(User, on=(Register.user == User.id))
             .where(
-                (Assistance.date == datetime.now().date())
-                & (Assistance.turn == turn_id)
+                (Attendance.date == datetime.now().date())
+                & (Attendance.turn == turn_id)
             )
         )
 
@@ -159,11 +167,11 @@ class AssistanceService:
         for i, user in enumerate(users):
             self.window.tbl_report.setItem(i, 0, QTableWidgetItem(str(user.id)))
             self.window.tbl_report.setItem(i, 1, QTableWidgetItem(user.dni))
-            self.window.tbl_report.setItem(i, 2, QTableWidgetItem(user.firstname))
-            self.window.tbl_report.setItem(i, 3, QTableWidgetItem(user.lastname))
+            self.window.tbl_report.setItem(i, 2, QTableWidgetItem(user.lastname))
+            self.window.tbl_report.setItem(i, 3, QTableWidgetItem(user.firstname))
             self.window.tbl_report.setItem(i, 4, QTableWidgetItem(user.userType))
             self.window.tbl_report.setItem(
-                i, 5, QTableWidgetItem(str(user.count_assistance))
+                i, 5, QTableWidgetItem(str(user.count_attendance))
             )
             self.window.tbl_report.setItem(
                 i, 6, QTableWidgetItem(str(user.count_tardy))
@@ -258,7 +266,7 @@ class AssistanceService:
                 i, 0, QTableWidgetItem(str(register.id))
             )
             self.window.tbl_report_detail.setItem(
-                i, 1, QTableWidgetItem(register.assistance.date.strftime("%d/%m/%y"))
+                i, 1, QTableWidgetItem(register.attendance.date.strftime("%d/%m/%y"))
             )
             self.window.tbl_report_detail.setItem(
                 i,
@@ -297,7 +305,7 @@ class AssistanceService:
                 i, 4, QTableWidgetItem(register.user.userType)
             )
             self.window.tbl_current_registers.setItem(
-                i, 5, QTableWidgetItem(register.assistance.turn.name)
+                i, 5, QTableWidgetItem(register.attendance.turn.name)
             )
             self.window.tbl_current_registers.setItem(
                 i,
@@ -309,3 +317,13 @@ class AssistanceService:
             self.window.tbl_current_registers.setItem(
                 i, 7, QTableWidgetItem(register.status)
             )
+
+    def generate_excel(self):
+        dt_start = self.window.dt_report_start.date().toPyDate()
+        dt_end = self.window.dt_report_end.date().toPyDate()
+        id_turn = self.window.cmb_report_turns.currentData()
+
+        if not id_turn:
+            self.window.show_message("Seleccione una asistencia", "error")
+            return
+        AttendanceReport.generate(self.window, dt_start, dt_end, id_turn)

@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 import numpy as np
 import cv2
 from pyzbar.pyzbar import decode
-from assistance.model import Assistance, Register
+from attendance.model import Attendance, Register
 from user.Model import User
 
 
@@ -11,26 +11,25 @@ class QrReader:
 
     def __init__(self, id):
         try:
-            self.assistance = Assistance.get(
-                Assistance.turn == id, Assistance.date == datetime.now().date()
+            self.attendance = Attendance.get(
+                Attendance.turn == id, Attendance.date == datetime.now().date()
             )
         except Exception as e:
-            self.assistance = Assistance.create(turn=id, date=datetime.now().date())
+            self.attendance = Attendance.create(turn=id, date=datetime.now().date())
             self.bulk_registers()
 
         self.cap = cv2.VideoCapture(0)
         self.cap.set(3, 640)
         self.cap.set(4, 480)
-        # onclose window
 
     def bulk_registers(self):
-        users = User.select().where(User.turn == self.assistance.turn)
+        users = User.select().where(User.turn == self.attendance.turn)
         registers = []
         for user in users:
             registers.append(
                 Register(
                     user=user.id,
-                    assistance=self.assistance.id,
+                    attendance=self.attendance.id,
                     status="Inasistencia",
                 )
             )
@@ -109,8 +108,8 @@ class QrReader:
         """
         returns
         0 if user not found
-        1 if assistance already registered
-        2 if assistance registered
+        1 if attendance already registered
+        2 if attendance registered
         3 other error
         """
 
@@ -123,16 +122,16 @@ class QrReader:
             today.year,
             today.month,
             today.day,
-            self.assistance.turn.time.hour,
-            self.assistance.turn.time.minute,
-            self.assistance.turn.time.second,
-        ) + timedelta(minutes=self.assistance.turn.tolerance)
+            self.attendance.turn.time.hour,
+            self.attendance.turn.time.minute,
+            self.attendance.turn.time.second,
+        ) + timedelta(minutes=self.attendance.turn.tolerance)
 
         try:
 
             register = Register.get(
                 Register.user == user.id,
-                Register.assistance == self.assistance.id,
+                Register.attendance == self.attendance.id,
             )
 
             if register.time:
@@ -149,7 +148,7 @@ class QrReader:
         except Register.DoesNotExist:
             register = Register(
                 user=user.id,
-                assistance=self.assistance.id,
+                attendance=self.attendance.id,
                 status="Asistencia"
                 if today.time() <= date_limit.time()
                 else "Tardanza",

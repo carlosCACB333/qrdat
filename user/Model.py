@@ -1,5 +1,5 @@
 import peewee
-from assistance.model_turn import Turn
+from attendance.model_turn import Turn
 from settings import DB, USER_TYPES
 
 
@@ -16,6 +16,9 @@ class User(peewee.Model):
         default=USER_TYPES[0][1],
         choices=USER_TYPES,
     )
+
+    def __str__(self):
+        return f"{self.lastname} {self.firstname}"
 
     class Meta:
         database = DB

@@ -9,7 +9,7 @@ class Turn(peewee.Model):
     tolerance = peewee.IntegerField(null=False, default=5)
 
     def __str__(self):
-        return self.name
+        return f"{self.name} - {self.time}"
 
     class Meta:
         database = DB

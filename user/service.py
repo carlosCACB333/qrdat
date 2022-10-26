@@ -1,4 +1,4 @@
-from assistance.model import Turn
+from attendance.model import Turn
 from settings import MENU_STYLE, USER_TYPES
 from .Model import User
 from PyQt5.QtWidgets import QTableWidgetItem, QMenu

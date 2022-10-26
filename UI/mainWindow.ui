@@ -225,6 +225,16 @@ background-color: rgb(73, 109, 194);
               <number>0</number>
              </property>
              <item>
+              <widget class="QPushButton" name="btn_home">
+               <property name="styleSheet">
+                <string notr="true"/>
+               </property>
+               <property name="text">
+                <string>Inicio</string>
+               </property>
+              </widget>
+             </item>
+             <item>
               <widget class="QPushButton" name="btn_turns">
                <property name="text">
                 <string>Turnos</string>
@@ -242,16 +252,6 @@ background-color: rgb(73, 109, 194);
               <widget class="QPushButton" name="btn_assistance">
                <property name="text">
                 <string>Asistencia</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="btn_home">
-               <property name="styleSheet">
-                <string notr="true"/>
-               </property>
-               <property name="text">
-                <string>Inicio</string>
                </property>
               </widget>
              </item>
@@ -1181,7 +1181,7 @@ color: rgb(255, 255, 255);</string>
                       <property name="frameShadow">
                        <enum>QFrame::Raised</enum>
                       </property>
-                      <layout class="QHBoxLayout" name="horizontalLayout_13" stretch="1,3,1,3">
+                      <layout class="QHBoxLayout" name="horizontalLayout_13" stretch="1,3,1,3,1,3">
                        <property name="spacing">
                         <number>20</number>
                        </property>
@@ -1204,6 +1204,23 @@ color: rgb(255, 255, 255);</string>
                        </item>
                        <item>
                         <widget class="QDateEdit" name="dt_report_end"/>
+                       </item>
+                       <item>
+                        <widget class="QLabel" name="label_3">
+                         <property name="text">
+                          <string>Turno</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QComboBox" name="cmb_report_turns">
+                         <property name="minimumSize">
+                          <size>
+                           <width>0</width>
+                           <height>30</height>
+                          </size>
+                         </property>
+                        </widget>
                        </item>
                       </layout>
                      </widget>
@@ -1237,6 +1254,13 @@ color: rgb(255, 255, 255);</string>
                         <widget class="QPushButton" name="btn_report_show">
                          <property name="text">
                           <string>mostrar</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QPushButton" name="btn_report_excel">
+                         <property name="text">
+                          <string>Generar excel</string>
                          </property>
                         </widget>
                        </item>
@@ -1278,12 +1302,12 @@ color: rgb(255, 255, 255);</string>
                       </column>
                       <column>
                        <property name="text">
-                        <string>Nombres</string>
+                        <string>Apellidos</string>
                        </property>
                       </column>
                       <column>
                        <property name="text">
-                        <string>Apellidos</string>
+                        <string>Nombres</string>
                        </property>
                       </column>
                       <column>
