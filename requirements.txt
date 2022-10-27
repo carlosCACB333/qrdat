@@ -2,4 +2,5 @@ numpy==1.23.4
 opencv-python==4.6.0.66
 peewee==3.15.3
 PyQt5==5.15.7
-pyzbar==0.1.9
+openpyxl==3.0.10
+pyinstaller==5.6.1

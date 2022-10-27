@@ -1,6 +1,4 @@
 from datetime import datetime, timedelta
-
-from black import Report
 from attendance.report import AttendanceReport
 from settings import MENU_STYLE
 from user.Model import User
@@ -326,4 +324,4 @@ class AttendanceService:
         if not id_turn:
             self.window.show_message("Seleccione una asistencia", "error")
             return
-        AttendanceReport.generate(self.window, dt_start, dt_end, id_turn)
+        AttendanceReport.generate(dt_start, dt_end, id_turn)
