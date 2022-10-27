@@ -54,6 +54,16 @@ pyuic5 -x .\UI\main_window.ui -o .\UI\main_window.py
 
 ## general el ejecutable del programa
 
+# <<<<<<< HEAD
+
+- **Instalar pyinstaller**
+
+  ```
+  pip install pyinstaller
+  ```
+
+> > > > > > > 7a513f757545e6f8cb7f1bb13941a52423f4a965
+
 - **Ejecutar el siguiente comando**
   ```
   pyinstaller --onefile --windowed --icon=assets/icon.ico main.py
