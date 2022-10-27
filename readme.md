@@ -52,17 +52,7 @@ con el programa de Qt designer 5.11.1 abrir el archivo `UI/main_window.ui` y hac
 pyuic5 -x .\UI\main_window.ui -o .\UI\main_window.py
 ```
 
-## general el ejecutable del programa
-
-# <<<<<<< HEAD
-
-- **Instalar pyinstaller**
-
-  ```
-  pip install pyinstaller
-  ```
-
-> > > > > > > 7a513f757545e6f8cb7f1bb13941a52423f4a965
+## generar el ejecutable del programa
 
 - **Ejecutar el siguiente comando**
   ```
