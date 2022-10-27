@@ -12,7 +12,7 @@
 - opencv-python==4.6.0.66
 - peewee==3.15.3
 - PyQt5==5.15.7
-- pyzbar==0.1.9
+- openpyxl==3.0.10
 
 ## pasos para ejecutar el programa
 
@@ -42,3 +42,25 @@
   ```
   py main.py
   ```
+
+## generar la interfaz grafica
+
+con el programa de Qt designer 5.11.1 abrir el archivo `UI/main_window.ui` y hacer las modificaciones necesarias, luego de esto ejecutar el siguiente comando en la terminal para generar el archivo `main_window.py` que contiene el diseño en python
+
+```
+pyuic5 -x .\UI\main_window.ui -o .\UI\main_window.py
+```
+
+## general el ejecutable del programa
+
+- **Instalar pyinstaller**
+
+  ```
+  pip install pyinstaller
+  ```
+
+- **Ejecutar el siguiente comando**
+  ```
+  pyinstaller --onefile --windowed --icon=assets/icon.ico main.py
+  ```
+- **El ejecutable se encuentra en la carpeta dist**

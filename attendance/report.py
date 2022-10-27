@@ -1,6 +1,4 @@
 import os
-from select import select
-from turtle import width
 import openpyxl
 from openpyxl.styles.borders import Border, Side
 from attendance.model_turn import Turn
@@ -28,9 +26,9 @@ FONT_BOLD = openpyxl.styles.Font(bold=True)
 
 class AttendanceReport:
     @staticmethod
-    def open_save_dialog(window, file_name):
+    def open_save_dialog(file_name):
         filename = QFileDialog.getSaveFileName(
-            window,
+            None,
             "Guardar reporte",
             QDir.homePath() + "/" + file_name,
             "Excel (*.xlsx)",
@@ -38,11 +36,11 @@ class AttendanceReport:
         return filename[0] if filename[0] != "" else None
 
     @staticmethod
-    def generate(window, dt_start, dt_end, turn_id):
+    def generate(dt_start, dt_end, turn_id):
         try:
             turn = Turn.get_by_id(turn_id)
             file_name = f"Reporte_{dt_start.strftime('%d-%m-%Y')}__{dt_end.strftime('%d-%m-%Y')}_{turn.name}.xlsx"
-            path = AttendanceReport.open_save_dialog(window, file_name)
+            path = AttendanceReport.open_save_dialog(file_name)
             if not path:
                 return
 

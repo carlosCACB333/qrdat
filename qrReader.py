@@ -1,7 +1,6 @@
 from datetime import datetime, timedelta
 import numpy as np
 import cv2
-from pyzbar.pyzbar import decode
 from attendance.model import Attendance, Register
 from user.Model import User
 
@@ -37,72 +36,77 @@ class QrReader:
         Register.bulk_create(registers)
 
     def read(self):
+        capture = cv2.VideoCapture(0)
 
-        while True:
-            isShow, frame = self.cap.read()
-
-            if isShow:
-                for barcode in decode(frame):
-                    email = barcode.data.decode("utf-8")
-                    if email:
-
-                        coord = np.array([barcode.polygon], np.int32).reshape(
-                            (-1, 1, 2)
-                        )
-                        resp = self.assists_process(email)
+        while capture.isOpened():
+            try:
+                ret, img = capture.read()
+                if not ret:
+                    print("No se pudo abrir la camara")
+                    break
+                qrDetector = cv2.QRCodeDetector()
+                data, bbox, _ = qrDetector.detectAndDecode(img)
+                if bbox is not None:
+                    if data:
+                        points = np.array(bbox[0], dtype=np.int32).reshape((-1, 1, 2))
+                        resp = self.assists_process(data)
                         if resp == 0:
-                            cv2.polylines(frame, [coord], True, (0, 0, 255), 5)
+                            cv2.polylines(img, [points], True, (0, 0, 255), 4)
                             cv2.putText(
-                                frame,
+                                img,
                                 "Usuario no encontrado",
-                                (barcode.rect.left, barcode.rect.top - 5),
+                                (10, 30),
                                 cv2.FONT_HERSHEY_SIMPLEX,
-                                0.9,
+                                1,
                                 (0, 0, 255),
                                 2,
                             )
 
                         elif resp == 1:
-                            cv2.polylines(frame, [coord], True, (0, 255, 0), 5)
+                            cv2.polylines(img, [points], True, (0, 255, 0), 4)
                             cv2.putText(
-                                frame,
+                                img,
                                 "Asistencia registrada",
-                                (barcode.rect.left, barcode.rect.top - 5),
+                                (10, 30),
                                 cv2.FONT_HERSHEY_SIMPLEX,
-                                0.9,
+                                1,
                                 (0, 255, 0),
                                 2,
                             )
 
                         elif resp == 2:
-                            cv2.polylines(frame, [coord], True, (0, 255, 0), 5)
+                            cv2.polylines(img, [points], True, (0, 255, 0), 4)
                             cv2.putText(
-                                frame,
+                                img,
                                 "Asistencia registrada",
-                                (barcode.rect.left, barcode.rect.top - 5),
+                                (10, 30),
                                 cv2.FONT_HERSHEY_SIMPLEX,
-                                0.9,
+                                1,
                                 (0, 255, 0),
                                 2,
                             )
 
                         else:
-                            cv2.polylines(frame, [coord], True, (0, 0, 255), 5)
+                            cv2.polylines(img, [points], True, (0, 0, 255), 4)
                             cv2.putText(
-                                frame,
-                                "Error al registrar la asistencia",
-                                (barcode.rect.left, barcode.rect.top - 5),
+                                img,
+                                "Error al registrar",
+                                (10, 30),
                                 cv2.FONT_HERSHEY_SIMPLEX,
-                                0.9,
+                                1,
                                 (0, 0, 255),
                                 2,
                             )
 
-                cv2.imshow(self.window_name, frame)
-                cv2.waitKey(1)
+                cv2.imshow(self.window_name, img)
+                if cv2.waitKey(1) == ord("q"):
+                    self.__del__()
+                    break
                 if cv2.getWindowProperty(self.window_name, cv2.WND_PROP_VISIBLE) < 1:
                     self.__del__()
                     break
+            except Exception as e:
+                print(e)
 
     def assists_process(self, dni):
         """

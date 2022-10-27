@@ -1,6 +1,8 @@
 from peewee import SqliteDatabase
 
-DB = SqliteDatabase("db.sqlite3", pragmas={"foreign_keys": 1})
+from helper import get_path
+
+DB = SqliteDatabase(get_path("db.sqlite3"), pragmas={"foreign_keys": 1})
 USER_TYPES = [("Alumno", "Alumno"), ("Profesor", "Profesor"), ("Otro", "Otro")]
 MENU_STYLE = """
             QMenu {
